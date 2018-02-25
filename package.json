@@ -1,0 +1,31 @@
+{
+  "name": "muskox",
+  "version": "0.1.0",
+  "description": "Node.js http framework inspired by Laravel",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjanssen/muskox.git"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "author": {
+    "name": "Marnix Janssen",
+    "email": "dev.marnix@gmail.com",
+    "url": "https://github.com/mjanssen"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^3.0.3",
+    "polka": "^0.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
