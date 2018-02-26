@@ -1,7 +1,16 @@
 const routes = require('../routes/web');
+const routerConfig = require('../config/router');
 
 const controllers = {};
 const collections = {};
+
+function attachControllerAction(controller, action, req, res, api) {
+  controllers[controller].req = req;
+  controllers[controller].res = res;
+  controllers[controller].api = api;
+
+  controllers[controller][action](req.params);
+}
 
 function attachRoutes({ app, mongo }) {
   Object.entries(routes).forEach(([name, data]) => {
@@ -24,11 +33,14 @@ function attachRoutes({ app, mongo }) {
         });
       }
 
-      app.get(data.path, (req, res) => {
-        controllers[controller].req = req;
-        controllers[controller].res = res;
+      if (data.exposeAsApi) {
+        app.get(`/${routerConfig.apiPathBase}${data.path}`, (req, res) => {
+          attachControllerAction(controller, action, req, res, true);
+        });
+      }
 
-        controllers[controller][action](req.params);
+      app.get(data.path, (req, res) => {
+        attachControllerAction(controller, action, req, res, false);
       });
     }
   });

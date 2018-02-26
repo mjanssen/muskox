@@ -1,13 +1,15 @@
-const { users } = require('../config/collections');
+const { users, articles } = require('../bootstrap/database').collections;
 
 module.exports = {
   home: {
     path: '/',
     uses: 'Home@index',
-    collections: [users],
+    collections: [users, articles],
+    exposeAsApi: true,
   },
   user: {
-    path: '/user/:id',
+    path: '/users/:id',
     uses: 'User@show',
+    exposeAsApi: true,
   },
 };
